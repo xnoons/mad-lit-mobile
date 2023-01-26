@@ -1,11 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
-const Home = () =>{
+const Home = () => {
   return (
-    <View></View>
+    <View style={styles.container}>
+      <View style={styles.card}><Text>card</Text></View>
+      <View style={styles.card}><Text>card</Text></View>
+      <View style={styles.card}><Text>card</Text></View>
+      <View style={styles.card}><Text>card</Text></View>
+      <Feather name="menu" size={24} color="black" />
+      <Text>testing</Text>
+      <Text>HOE</Text>
+    </View>
   )
 }
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  card : {
+  card: {
     height: 100,
     width: 350,
     margin: 5,
