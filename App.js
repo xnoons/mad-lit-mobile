@@ -7,13 +7,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Home'
 import MadLitDescription from './MadLitDescription';
+import Settings from './Settings';
+import Playing from './Playing';
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   const Root = () => {
     return (
-      <Drawer.Navigator>
+      <Drawer.Navigator initialRouteName='Home'>
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="MadLitDescription" component={MadLitDescription} />
       </Drawer.Navigator>
@@ -21,10 +23,13 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Root">
         <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Playing" component={Playing} />
         <Stack.Screen name="MadLitDescription" component={MadLitDescription} />
+        <Stack.Screen name="Settings" component={Settings} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
