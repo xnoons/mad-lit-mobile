@@ -4,7 +4,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 const Profile = () => {
   return (
     <View>
-      <Text> Profile</Text>
+      <Text> Profile Photo</Text>
+      <Text>Username mcUsername</Text>
+      <Text>My Stories</Text>
+      <Text>Liked Stories</Text>
+      <Text>Saved Stories</Text>
     </View>
   )
 }

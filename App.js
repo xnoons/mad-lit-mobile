@@ -6,8 +6,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Home'
-import Profile from './Profile'
 import MadLitDescription from './MadLitDescription';
+import Profile from './Profile'
+import Writing from "./Writing";
 import Settings from './Settings';
 import Playing from './Playing';
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ export default function App() {
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="MadLitDescription" component={MadLitDescription} />
           {userLogin && <Drawer.Screen name="Profile" component={Profile} />}
+          <Drawer.Screen name="Write your own story!" component={Writing} />
         </Drawer.Navigator>
       );
     }
