@@ -4,10 +4,13 @@ import { Button, TextInput, View, ScrollView, StyleSheet, Text, TouchableOpacity
 const Writing = () => {
   const [story, setStory] = useState('');
   const [storyArr, setStoryArr] = useState([]);
+  const [partsOfSpeech, setPartsOfSpeech] = useState([])
 
+
+  // shows either story or parts of speech
   const [showStory, setShowStory] = useState(true)
   const [showPartOfSpeech, setShowPartOfSpeech] = useState(false)
-
+  // styling state
   const [height, setHeight] = useState(40);
 
   const handleContentSizeChange = (event) => {
@@ -21,12 +24,11 @@ const Writing = () => {
     console.log(arr)
 
     setStoryArr(arr)
-    console.log(storyArr)
     setShowStory(false)
     setShowPartOfSpeech(true)
   }
   return (
-    <TouchableOpacity onPress={() => console.log('Card clicked')}>
+    <View>
       {showStory ?
         <View>
           <View style={styles.card}>
@@ -45,17 +47,33 @@ const Writing = () => {
         </View>
         : <View></View>}
 
-      {showPartOfSpeech ? 
-      <View>
-        <Text>{story}</Text>
-      </View> 
-      : <View></View>}
+      {showPartOfSpeech ?
+        <View>
+          {storyArr.map((word, i) => {
 
-    </TouchableOpacity>
+            return (
+              <View>
+                <TouchableOpacity onPress={() => { console.log(word) }} key={i}>
+                  <Text>{word}</Text>
+                </TouchableOpacity>
+              </View>
+            )
+
+          })}
+          <Text>{story}</Text>
+          <Button title="Edit Story" onPress={() => { setShowStory(true), setShowPartOfSpeech(false) }} />
+        </View>
+        : <View></View>}
+
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  button: {
+    height: 10,
+    width: 30
+  },
   card: {
     height: 500,
     width: '100%',
