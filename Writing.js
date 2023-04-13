@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Button, TextInput, View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Button, TextInput, View, ScrollView, StyleSheet, Text, TouchableOpacity, Modal, Pressable, Alert, Touchable } from 'react-native';
 
 const Writing = () => {
   const [story, setStory] = useState('');
   const [storyArr, setStoryArr] = useState([]);
-  const [partsOfSpeech, setPartsOfSpeech] = useState([])
+  const [partsOfSpeechArr, setPartsOfSpeechArr] = useState([])
 
+  const [position, setPosition] = useState(0)
+  const [partOfSpeech, setPartOfSpeech] = useState()
 
+  const [modalVisible, setModalVisible] = useState(false)
   // shows either story or parts of speech
   const [showStory, setShowStory] = useState(true)
   const [showPartOfSpeech, setShowPartOfSpeech] = useState(false)
@@ -22,10 +25,25 @@ const Writing = () => {
     const arr = arrStory.split(' ')
     console.log(arrStory)
     console.log(arr)
-
+    const pos = []
+    for (let i = 0; i < arr.length; i++) {
+      pos.push(null)
+    }
+    setPartsOfSpeechArr(pos)
     setStoryArr(arr)
     setShowStory(false)
     setShowPartOfSpeech(true)
+  }
+
+
+  const submitModal = () => {
+    //position and pos
+    console.log('submit')
+    const pos = partOfSpeech
+
+    const updatedArr = [...partsOfSpeechArr]
+    updatedArr.splice(position, 1, partOfSpeech)
+    setPartsOfSpeechArr(updatedArr)
   }
   return (
     <View>
@@ -49,14 +67,67 @@ const Writing = () => {
 
       {showPartOfSpeech ?
         <View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Noun') }}>
+                  <Text style={styles.modalText}>Noun</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Pronoun') }}>
+                  <Text style={styles.modalText}>Pronoun</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Verb') }}>
+                  <Text style={styles.modalText}>Verb</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Adjective') }}>
+                  <Text style={styles.modalText}>Adjective</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Adverb') }}>
+                  <Text style={styles.modalText}>Adverb</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Preposition') }}>
+                  <Text style={styles.modalText}>Preposition</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Conjunction') }}>
+                  <Text style={styles.modalText}>Conjunction</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('Interjection') }}>
+                  <Text style={styles.modalText}>Interjection</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech('FIX THIS') }}>
+                  <Text style={styles.modalText}>Custom!</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { setPartOfSpeech(null) }}>
+                <Text style={styles.modalText}>None</Text>
+                </TouchableOpacity>
+
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => { setModalVisible(!modalVisible), submitModal(), console.log('closed') }}>
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          {
+            partsOfSpeechArr.map((pos) => {
+              console.log(pos)
+
+
+            })
+          }
           {storyArr.map((word, i) => {
 
             return (
-              <View>
-                <TouchableOpacity onPress={() => { console.log(word) }} key={i}>
-                  <Text>{word}</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity onPress={() => { setModalVisible(true), setPosition(i) }} key={i}>
+                <Text>{word}</Text>
+              </TouchableOpacity>
             )
 
           })}
@@ -70,9 +141,46 @@ const Writing = () => {
 };
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   button: {
-    height: 10,
-    width: 30
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
   card: {
     height: 500,
