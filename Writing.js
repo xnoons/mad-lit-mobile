@@ -6,8 +6,9 @@ const Writing = () => {
   const [storyArr, setStoryArr] = useState([]);
   const [partsOfSpeechArr, setPartsOfSpeechArr] = useState([])
 
+  const [highlighted, setHighlighted] = useState([])
   const [position, setPosition] = useState(0)
-  const [partOfSpeech, setPartOfSpeech] = useState()
+  const [partOfSpeech, setPartOfSpeech] = useState('')
 
   const [modalVisible, setModalVisible] = useState(false)
   // shows either story or parts of speech
@@ -23,8 +24,7 @@ const Writing = () => {
   const toPartOfSpeech = () => {
     const arrStory = story
     const arr = arrStory.split(' ')
-    console.log(arrStory)
-    console.log(arr)
+    
     const pos = []
     for (let i = 0; i < arr.length; i++) {
       pos.push(null)
@@ -37,10 +37,25 @@ const Writing = () => {
 
 
   const submitModal = () => {
-    //position and pos
     console.log('submit')
-    const pos = partOfSpeech
+    
+    //highlights word if part of speech was selected
+    if (highlighted.length === 0 && partOfSpeech !== '') {
+      console.log('HELLO?')
+      const num = []
+      for (let i = 0; i < storyArr.length; i++) {
+        num.push(i)
+      }
+      const highlightWord = num
+      highlightWord.splice(position, 1, 'highlighted')
+      setHighlighted(highlightWord)
+    } else if (partOfSpeech !== ''){
+      const highlightWord = [...highlighted]
+      highlightWord.splice(position, 1, 'highlighted')
+      setHighlighted(highlightWord)
+    }
 
+    //replaces null with part of speech
     const updatedArr = [...partsOfSpeechArr]
     updatedArr.splice(position, 1, partOfSpeech)
     setPartsOfSpeechArr(updatedArr)
@@ -73,6 +88,7 @@ const Writing = () => {
             visible={modalVisible}
             onRequestClose={() => {
               setModalVisible(!modalVisible);
+              setPartOfSpeech('')
             }}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
@@ -104,33 +120,48 @@ const Writing = () => {
                   <Text style={styles.modalText}>Custom!</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { setPartOfSpeech(null) }}>
-                <Text style={styles.modalText}>None</Text>
+                  <Text style={styles.modalText}>None</Text>
                 </TouchableOpacity>
 
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => { setModalVisible(!modalVisible), submitModal(), console.log('closed') }}>
+                  onPress={() => { setModalVisible(!modalVisible), submitModal(), setPartOfSpeech(''), console.log('closed') }}>
                   <Text style={styles.textStyle}>Hide Modal</Text>
                 </Pressable>
               </View>
             </View>
           </Modal>
-          {
+          {/* {
             partsOfSpeechArr.map((pos) => {
               console.log(pos)
 
 
             })
-          }
+          } */}
+          {/* {
+            highlighted.map((pos) => {
+              console.log('hi')
+              console.log(pos)
+
+
+            })
+          } */}
           {storyArr.map((word, i) => {
-
-            return (
-              <TouchableOpacity onPress={() => { setModalVisible(true), setPosition(i) }} key={i}>
-                <Text>{word}</Text>
-              </TouchableOpacity>
-            )
-
+            if (highlighted[i] === 'highlighted') {
+              return (
+                <TouchableOpacity style={{ backgroundColor: 'yellow' }} onPress={() => { setModalVisible(true), setPosition(i) }} key={i}>
+                  <Text>{word}</Text>
+                </TouchableOpacity>
+              )
+            }else{
+              return (
+                <TouchableOpacity onPress={() => { setModalVisible(true), setPosition(i) }} key={i}>
+                  <Text>{word}</Text>
+                </TouchableOpacity>
+              )
+            }
           })}
+
           <Text>{story}</Text>
           <Button title="Edit Story" onPress={() => { setShowStory(true), setShowPartOfSpeech(false) }} />
         </View>
