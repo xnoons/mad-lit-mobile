@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "9807411420",
+    "project_id": "mad-lit-mobile",
+    "storage_bucket": "mad-lit-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9807411420:android:23fff39228231c589bdc19",
+        "android_client_info": {
+          "package_name": "com.MadLit.MadLitMobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9807411420-uhvamqo92602er5qo5drrumndi6il00d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2nbu2zKMVym7ijGblEoAmDzVHL5U5Y8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9807411420-uhvamqo92602er5qo5drrumndi6il00d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

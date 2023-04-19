@@ -116,6 +116,7 @@ const Writing = () => {
                 <TouchableOpacity onPress={() => { setPartOfSpeech('Interjection') }}>
                   <Text style={styles.modalText}>Interjection</Text>
                 </TouchableOpacity>
+                {/* TODO: make custom input for parts of speech */}
                 <TouchableOpacity onPress={() => { setPartOfSpeech('FIX THIS') }}>
                   <Text style={styles.modalText}>Custom!</Text>
                 </TouchableOpacity>
